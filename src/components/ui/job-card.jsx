@@ -35,11 +35,16 @@ const JobCard = ({
     fn: fnSavedJob,
   } = useFetch(saveJob);
 
-  const handleSaveJob = async () => {
-    await fnSavedJob({
-      user_id: user.id,
-      job_id: job.id,
-    });
+
+  const handleSaveToggle = async () => {
+    if (saved) {
+      // Unsave job using saveJob with alreadySaved: true
+      await saveJob(null, { alreadySaved: true }, { user_id: user.id, job_id: job.id });
+      setSaved(false);
+    } else {
+      await fnSavedJob({ user_id: user.id, job_id: job.id });
+      setSaved(true);
+    }
     onJobAction();
   };
 
@@ -90,7 +95,7 @@ const JobCard = ({
           <Button
             variant="outline"
             className="w-15"
-            onClick={handleSaveJob}
+            onClick={handleSaveToggle}
             disabled={loadingSavedJob}
           >
             {saved ? (
