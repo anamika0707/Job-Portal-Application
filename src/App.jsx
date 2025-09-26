@@ -1,4 +1,4 @@
-import { ThemeProvider } from "./components/theme-provider";
+import { ThemeProvider } from "./components/ui/theme-provider";
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
 import './App.css'
 import { Button } from './components/ui/button'
