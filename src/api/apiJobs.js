@@ -66,15 +66,21 @@ export async function getSingleJob(token, { job_id }) {
 }
 
 // - Add / Remove Saved Job
-export async function saveJob(token, { alreadySaved }, saveData) {
+export async function saveJob(token, maybeOptions = {}, saveData) {
   const supabase = await supabaseClient(token);
 
+  // Support calling patterns where the alreadySaved flag may be passed
+  // either as the second param (maybeOptions) or as a property on saveData.
+  const alreadySaved = (maybeOptions && maybeOptions.alreadySaved) || (saveData && saveData.alreadySaved);
+
   if (alreadySaved) {
-    // If the job is already saved, remove it
-    const { data, error: deleteError } = await supabase
-      .from("saved_jobs")
-      .delete()
-      .eq("job_id", saveData.job_id);
+    // If the job is already saved, remove it for the specific user
+    const query = supabase.from("saved_jobs").delete();
+
+    if (saveData?.job_id) query.eq("job_id", saveData.job_id);
+    if (saveData?.user_id) query.eq("user_id", saveData.user_id);
+
+    const { data, error: deleteError } = await query;
 
     if (deleteError) {
       console.error("Error removing saved job:", deleteError);
