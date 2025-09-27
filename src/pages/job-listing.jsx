@@ -97,11 +97,11 @@ const JobListing = () => {
           <SelectTrigger>
             <SelectValue placeholder="Filter by Location" />
           </SelectTrigger>
-          <SelectContent className="bg-white dark:bg-gray-900 text-black dark:text-white border border-gray-200 dark:border-gray-700 shadow-lg">
+          <SelectContent>
             <SelectGroup>
               {State.getStatesOfCountry("IN").map(({ name }) => {
                 return (
-                  <SelectItem key={name} value={name} className="bg-white dark:bg-gray-900 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <SelectItem key={name} value={name}>
                     {name}
                   </SelectItem>
                 );
@@ -117,11 +117,11 @@ const JobListing = () => {
           <SelectTrigger>
             <SelectValue placeholder="Filter by Company" />
           </SelectTrigger>
-          <SelectContent className="bg-white dark:bg-gray-900 text-black dark:text-white border border-gray-200 dark:border-gray-700 shadow-lg">
+          <SelectContent>
             <SelectGroup>
               {companies?.map(({ name, id }) => {
                 return (
-                  <SelectItem key={name} value={id} className="bg-white dark:bg-gray-900 text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800">
+                  <SelectItem key={name} value={id}>
                     {name}
                   </SelectItem>
                 );

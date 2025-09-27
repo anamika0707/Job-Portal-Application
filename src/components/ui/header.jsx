@@ -1,5 +1,4 @@
-import React from 'react'
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link , useSearchParams} from 'react-router-dom'
 import { Button } from './button'
 import { SignedIn, SignedOut, SignInButton, UserButton, SignIn,
@@ -10,6 +9,18 @@ const Header = () => {
    const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams();
   const { user } = useUser();
+
+
+  // Toggle modal-open class on body for blur effect
+  useEffect(() => {
+    if (showSignIn) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+    // Clean up on unmount
+    return () => document.body.classList.remove("modal-open");
+  }, [showSignIn]);
 
   useEffect(() => {
     if (search.get("sign-in")) {
@@ -73,7 +84,7 @@ const Header = () => {
 
       {showSignIn && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 flex items-center justify-center z-50 bg-transparent backdrop-blur-sm transition-all duration-300"
           onClick={handleOverlayClick}
         >
           <SignIn

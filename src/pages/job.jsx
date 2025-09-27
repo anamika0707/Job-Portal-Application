@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ApplyJobDrawer } from "@/components/ui/apply-job";
-import ApplicationCard from "@/components/application-card";
+import ApplicationCard from "@/components/ui/application-card";
 
 import useFetch from "@/hooks/use-fetch";
 import { getSingleJob, updateHiringStatus } from "@/api/apiJobs";
@@ -107,14 +107,17 @@ const JobPage = () => {
         source={job?.requirements}
         className="bg-transparent sm:text-lg" // add global ul styles - tutorial
       />
-      {job?.recruiter_id !== user?.id && (
-        <ApplyJobDrawer
-          job={job}
-          user={user}
-          fetchJob={fnJob}
-          applied={job?.applications?.find((ap) => ap.candidate_id === user.id)}
-        />
-      )}
+      {(() => {
+        const applied = job?.applications?.find((ap) => ap.candidate_id === user.id);
+        return job?.recruiter_id !== user?.id ? (
+          <ApplyJobDrawer
+            job={job}
+            user={user}
+            fetchJob={fnJob}
+            applied={applied}
+          />
+        ) : null;
+      })()}
       {loadingHiringStatus && <BarLoader width={"100%"} color="#36d7b7" />}
       {job?.applications?.length > 0 && job?.recruiter_id === user?.id && (
         <div className="flex flex-col gap-2">

@@ -1,8 +1,17 @@
+
 import Header from '@/components/ui/header'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 
+
 const AppLayout = () => {
+  useEffect(() => {
+    const root = document.getElementById('root');
+    if (root) {
+      root.removeAttribute('aria-hidden');
+      root.removeAttribute('data-aria-hidden');
+    }
+  });
   return (
     <div>
       <div className='grid-background'></div>
