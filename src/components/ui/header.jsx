@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Link , useSearchParams} from 'react-router-dom'
-import { Button } from './button'
-import { SignedIn, SignedOut, SignInButton, UserButton, SignIn,
-  useUser, } from '@clerk/clerk-react';
-import { BriefcaseBusiness, PenBox ,Heart} from 'lucide-react';
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import {
+  SignedIn,
+  SignedOut,
+  UserButton,
+  SignIn,
+  useUser,
+} from "@clerk/clerk-react";
+import { Button } from "/button";
+import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
 
 const Header = () => {
-   const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
+
   const [search, setSearch] = useSearchParams();
   const { user } = useUser();
-
-
-  // Toggle modal-open class on body for blur effect
-  useEffect(() => {
-    if (showSignIn) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-    // Clean up on unmount
-    return () => document.body.classList.remove("modal-open");
-  }, [showSignIn]);
 
   useEffect(() => {
     if (search.get("sign-in")) {
@@ -28,13 +22,13 @@ const Header = () => {
     }
   }, [search]);
 
-
-    const handleOverlayClick = (e) => {
+  const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setShowSignIn(false);
       setSearch({});
     }
   };
+
   return (
     <>
       <nav className="py-4 flex justify-between items-center">
@@ -84,7 +78,7 @@ const Header = () => {
 
       {showSignIn && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 bg-transparent backdrop-blur-sm transition-all duration-300"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={handleOverlayClick}
         >
           <SignIn
@@ -94,7 +88,7 @@ const Header = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
