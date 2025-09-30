@@ -7,7 +7,7 @@ import {
   SignIn,
   useUser,
 } from "@clerk/clerk-react";
-import { Button } from "/button";
+import { Button } from "./button";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
 
 const Header = () => {
@@ -78,7 +78,7 @@ const Header = () => {
 
       {showSignIn && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+          className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
           <SignIn
