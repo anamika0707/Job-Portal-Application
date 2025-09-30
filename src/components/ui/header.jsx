@@ -81,10 +81,17 @@ const Header = () => {
           className="fixed inset-0 flex items-center justify-center z-50 bg-opacity-50 backdrop-blur-sm"
           onClick={handleOverlayClick}
         >
-          <SignIn
-            signUpForceRedirectUrl="/onboarding"
-            fallbackRedirectUrl="/onboarding"
-          />
+        {/* <SignIn
+          signUpForceRedirectUrl="/onboarding"
+          fallbackRedirectUrl="/onboarding"
+        /> */} 
+
+         <SignIn
+                forceRedirectUrl={import.meta.env.VITE_CLERK_FORCE_REDIRECT_URL}
+                fallbackRedirectUrl={import.meta.env.VITE_CLERK_FALLBACK_REDIRECT_URL}
+                signUpForceRedirectUrl="/onboarding"
+              />
+        
         </div>
       )}
     </>
